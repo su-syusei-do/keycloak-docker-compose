@@ -9,12 +9,17 @@ docker exec demo /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 ## security
 
 ```
-# 秘密鍵
-sudo openssl genrsa -out ./nginx/ssl/server.key 2048
+# CA
+openssl genrsa -out CAcert-key.pem 2048
+openssl req -new -key CAcert-key.pem -out CAcert.csr
+openssl x509 -req -days 3650 -in CAcert.csr -signkey CAcert-key.pem -out CAcert.pem
 
-# CSR
-sudo openssl req -new -key ./nginx/ssl/server.key -out ./nginx/ssl/server.csr
+# Server
+openssl genrsa -out server-key.pem 2048
+openssl req -new -key server-key.pem -out server-cert.csr
+openssl x509 -req -days 3650 -CAcreateserial -in server-cert.csr -CA CAcert.pem -CAkey CAcert-key.pem -out server-cert.pem
 
-# CRT
-sudo openssl x509 -days 3650 -req -signkey ./nginx/ssl/server.key -in ./nginx/ssl/server.csr -out ./nginx/ssl/server.crt
+# trust store
+keytool -import -keystore trust.jks -file CAcert.pem -alias caroot
+keytool –import –keystore trust.jks –file server-cert.pem –alias server
 ```
