@@ -33,7 +33,7 @@ services:
   web:
     image: jboss/wildfly
     volumes:
-      - ./deploymnets:/opt/jboss/wildfly/standalone/deployments
+      - ./deployments:/opt/jboss/wildfly/standalone/deployments
     ports:
       - 8082:8080
       - 9992:9990
