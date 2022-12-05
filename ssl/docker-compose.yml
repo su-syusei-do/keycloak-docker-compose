@@ -37,6 +37,7 @@ services:
       JAVA_OPTS: -Djavax.net.ssl.trustStore=/opt/jboss/wildfly/ssl/trust.jks -Djavax.net.ssl.trustStorePassword=secret
     volumes:
       - ./deployments:/opt/jboss/wildfly/standalone/deployments
+      - ./nginx/ssl:/opt/jboss/wildfly/ssl
     ports:
       - 8082:8080
       - 9992:9990
