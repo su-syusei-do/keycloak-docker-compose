@@ -22,5 +22,5 @@ openssl x509 -req -days 3650 -CAcreateserial -in server-cert.csr -CA CAcert.pem 
 
 # trust store
 keytool -import -keystore trust.jks -file CAcert.pem -alias caroot
-keytool –import –keystore trust.jks –file server-cert.pem –alias server
+keytool –import –keystore trust.jks –file server-cert.pem –alias client
 ```
