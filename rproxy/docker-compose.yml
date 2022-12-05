@@ -38,3 +38,12 @@ services:
       - 8082:8080
       - 9992:9990
     command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0 -bmanagement=0.0.0.0
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+      - ./nginx/html:/var/www/html
